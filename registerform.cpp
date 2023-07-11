@@ -11,6 +11,8 @@ RegisterForm::RegisterForm(QWidget *parent) :
 {
     ui->setupUi(this); // 初始化ui
 
+    w_client = writeclient::getTcpsocketClient();
+
     //根据正则表达式过滤字符串
     ui->account_lineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{3,6}$")));
     ui->name_lineEdit->setValidator(new QRegExpValidator(QRegExp("[\u4e00-\u9fa5a-zA-Z]{1,9}$")));
@@ -47,12 +49,32 @@ RegisterForm::RegisterForm(QWidget *parent) :
         QString s = doc.toJson(QJsonDocument::Compact);
         qDebug()<<"测试数据"<<s;
 
+        w_client->sendText(0,s.toStdString(),REGISTER);
+        w_client->getTcpClient()->waitForReadyRead(-1);
 
+        QJsonObject serverInfoObj = w_client->recvServerMsg();
+        int status = serverInfoObj["status"].toInt();
+        if(status == REGISTER_SUCCESS){
+            QMessageBox::information(this,"注册提示","注册成功");
+            this->close();
+        }
+        else if(status == REGISTER_FAIL){
+            QMessageBox::information(this,"注册提示","账号已存在, 请填写其它账号");
+        }
     });
 
 }
 
+
 RegisterForm::~RegisterForm()
 {
     delete ui;
+    w_client->closeTcpSocket();
+    delete this->w_client;
 }
+
+void RegisterForm::closeEvent(QCloseEvent *e)
+{
+    this->loginform->show();
+}
+

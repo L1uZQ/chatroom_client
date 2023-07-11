@@ -19,6 +19,9 @@ public:
 
 private:
     Ui::RegisterForm *ui;
+    writeclient * w_client;
+
+    void closeEvent(QCloseEvent * e);
 };
 
 #endif // REGISTERFORM_H

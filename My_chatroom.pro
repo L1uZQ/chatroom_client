@@ -29,14 +29,26 @@ SOURCES += \
         widget.cpp \
     loginin.cpp \
     registerform.cpp \
-    dataencoder.cpp
+    dataencoder.cpp \
+    client.cpp \
+    dataparser.cpp \
+    writeclient.cpp \
+    readclient.cpp \
+    user.cpp \
+    readthread.cpp
 
 HEADERS += \
         widget.h \
     loginin.h \
     registerform.h \
     config.h \
-    dataencoder.h
+    dataencoder.h \
+    client.h \
+    dataparser.h \
+    writeclient.h \
+    readclient.h \
+    user.h \
+    readthread.h
 
 FORMS += \
         widget.ui \

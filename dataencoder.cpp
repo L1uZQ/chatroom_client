@@ -8,10 +8,10 @@ dataencoder::dataencoder()
 string dataencoder::encode(unsigned int protocolid, unsigned int account, unsigned int datatype, unsigned int datalength)
 {
     hp = head;
-    encodeElement(protocolId, PROTOCOL_ID_SIZE);
+    encodeElement(protocolid, PROTOCOL_ID_SIZE);
     encodeElement(account, ACCOUNT_SIZE);
-    encodeElement(dataType, DATA_TYPE_SIZE);
-    encodeElement(dataLength, DATA_SIZE);
+    encodeElement(datatype, DATA_TYPE_SIZE);
+    encodeElement(datalength, DATA_SIZE);
     return string(head,sizeof(head));
 }
 

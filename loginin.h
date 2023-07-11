@@ -3,7 +3,12 @@
 
 #include <QWidget>
 #include<QTcpSocket>
+#include<QMessageBox>
 
+#include"dataencoder.h"
+#include"readclient.h"
+#include"writeclient.h"
+#include"user.h"
 
 namespace Ui {
 class LoginIn;
@@ -20,10 +25,10 @@ public:
 
 private:
     Ui::LoginIn *ui;
-//    WriteClient * writeClient = nullptr;
-//    ReadClient * readClient = nullptr;
-//    User * user = nullptr;
-//    void closeEvent(QCloseEvent * e);
+    writeclient * w_client = nullptr;
+    readclient * r_client = nullptr;
+    user * rm_user = nullptr;
+    void closeEvent(QCloseEvent * e);
     void sleep(int msec);
 };
 
